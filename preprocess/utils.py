@@ -24,7 +24,15 @@ def get_train_val_split():
     return train_scene_ids, val_scene_ids
 
 
-def load_pc(scan_id, keep_background = False, scan_dir = '/221019046/Projects/vil3dref/datasets/referit3d/scan_data'):
+_DEFAULT_SCAN_DIR = os.path.join(
+    os.path.dirname(__file__), '..', 'data', 'vil3dref'
+)
+
+
+def load_pc(scan_id, keep_background=False, scan_dir=None):
+    if scan_dir is None:
+        scan_dir = os.environ.get('SCAN_DATA_DIR', _DEFAULT_SCAN_DIR)
+    scan_dir = os.path.abspath(scan_dir)
     pcds, colors, _, instance_labels = torch.load(
         os.path.join(scan_dir, 'pcd_with_global_alignment', '%s.pth' % scan_id))
     obj_labels = json.load(open(os.path.join(scan_dir, 'instance_id_to_name', '%s.json' % scan_id)))

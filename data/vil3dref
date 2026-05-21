@@ -1,1 +1,3 @@
 /root/autodl-tmp/ZSVG3D_data/vil3dref
+#instance_id_to_name(referit3d/scan_data/)
+#pcd_with_global_alignment(referit3d/scan_data/)
